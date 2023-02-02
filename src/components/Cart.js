@@ -18,7 +18,7 @@ const Cart = () => {
   return (
     <div className='container'>
          {cart.length > 0 ? (
-     <div className="table-container">
+     <div className="table-container"> 
               <table className="table">
                 <thead>
                   <tr>
