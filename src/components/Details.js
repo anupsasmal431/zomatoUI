@@ -46,21 +46,21 @@ const Details = () => {
     const {id}=useParams();
     const dispatch = useDispatch();
     const [checked,setState]=useState(true);
-    const [quantity, setQuantity] = useState(1);
+    const state = {};
     const { items:crtitems, total } = useSelector((state) => state.cartReducer);
     const {data=[],isFetching}=useSingleRecordQuery(id);
     const {data:items=[]}=useGetallitemsQuery(id)
     //console.log(data)
    //console.log(items)
-   const inc = () => {
-    setQuantity(quantity + 1);
+   const inc = (j) => {
+    state.j.fn(state.j.val + 1);
   };
-  const dec = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  const dec = (j) => {
+    if (state.j.val > 1) {
+      state.j.fn(state.j.val - 1);
     }
   };
-  const addToCart = (sitem) => {
+  const addToCart = (sitem,i) => {
     const {
       ...newProduct
     } = sitem;
@@ -68,7 +68,7 @@ const Details = () => {
     const cartItems = cart ? JSON.parse(cart) : [];
     const checkItem = cartItems.find((item) => item._id === newProduct._id);
     if (!checkItem) {
-      newProduct["qty"] = quantity;
+      newProduct["qty"] = state.i.val;
       dispatch(addCart(newProduct));
       cartItems.push(newProduct);
       localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -145,7 +145,13 @@ const Details = () => {
 
 {
 items?.response && 
-items?.response.map(itm=>{
+items?.response.map((itm,i)=>{
+  const resultArr = useState(1);
+  state[i] = {
+    val: resultArr[0],
+    fn: resultArr[1]
+  };
+  
      return <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 mb-3" key={itm._id} > 
      <div className="card">
       <img src={process.env.PUBLIC_URL+`/images/${itm.image}`} className="card-img-top img-fluid" alt="test"/>
@@ -156,12 +162,12 @@ items?.response.map(itm=>{
            <div className="Deep">{itm.description}</div>
            <div className='d-flex justify-content-between mt-2 align-items-center'>
               <div>
-              <button className='border border-dark border-4' onClick={dec}><span className='fw-bold'>-</span></button>
-              <span className="mx-1">{quantity}</span>
-              <button className='border border-dark border-4' onClick={inc}><span className='fw-bold'>+</span></button>
+              <button className='border border-dark border-4' onClick={()=>dec(i)}><span className='fw-bold'>-</span></button>
+              <span className="mx-1">{state.task.val}</span>
+              <button className='border border-dark border-4' onClick={()=>inc(i)}><span className='fw-bold'>+</span></button>
               </div>
               <div>
-                 <button className="btn btn-primary" onClick={()=>addToCart(itm)}>ADD</button>
+                 <button className="btn btn-primary" onClick={()=>addToCart(itm,i)}>ADD</button>
               </div>
           </div>
            
