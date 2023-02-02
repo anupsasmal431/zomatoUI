@@ -51,7 +51,7 @@ const Cart = () => {
                         <td>
                           {item.qty}
                         </td>
-                        <td>{total}</td>
+                        <td> &#8377; {item.price*item.qty}</td>
                         <td >
                           <span
                           style={{"cursor":"pointer"}}
