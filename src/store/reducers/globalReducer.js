@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const alllocation=localStorage.getItem("location");
 function verifystorage(keyName) {
-    const storage =localStorage.getItem(keyName) || [];
+    const storage =localStorage.getItem(keyName) || "[]";
     return JSON.parse(storage);
 }
 const globalReducer=createSlice({
